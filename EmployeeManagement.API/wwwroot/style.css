@@ -211,3 +211,80 @@ input.error {
     border: 1px solid #e74c3c;
     background: #fff6f6;
 }
+
+/* EXPORT DROPDOWN */
+
+.export-dropdown {
+    position: relative;
+}
+
+.export-btn {
+    background: #10b981;
+    color: white;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.export-menu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: none;
+    min-width: 150px;
+}
+
+    .export-menu div {
+        padding: 10px;
+        cursor: pointer;
+    }
+
+        .export-menu div:hover {
+            background: #f1f5f9;
+        }
+
+.export-dropdown:hover .export-menu {
+    display: block;
+}
+
+.dark-toggle {
+    background: #111;
+    color: white;
+    border: none;
+    padding: 10px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* DARK MODE */
+
+body.dark {
+    background: #0f172a;
+    color: white;
+}
+
+body.dark .card {
+    background: #1e293b;
+}
+
+body.dark table tr:hover {
+    background: #334155;
+}
+
+body.dark input {
+    background: #1e293b;
+    color: white;
+    border: 1px solid #334155;
+}
+
+body.dark .modal-content {
+    background: #1e293b;
+}
+
+body.dark .export-menu {
+    background: #1e293b;
+}

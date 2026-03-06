@@ -250,6 +250,73 @@ function searchEmployee() {
     renderTable();
 }
 
+function exportCSV() {
+
+    let csv = "ID,Name,Email,Department,Salary\n";
+
+    filteredEmployees.forEach(e => {
+        csv += `${e.id},"${e.name}","${e.email}","${e.department}",${e.salary}\n`;
+    });
+
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "employees.csv";
+    a.click();
+}
+
+function exportExcel() {
+
+    const ws = XLSX.utils.json_to_sheet(filteredEmployees);
+
+    const wb = XLSX.utils.book_new();
+
+    XLSX.utils.book_append_sheet(wb, ws, "Employees");
+
+    XLSX.writeFile(wb, "employees.xlsx");
+}
+
+function exportPDF() {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    const rows = filteredEmployees.map(e => [
+        e.id,
+        e.name,
+        e.email,
+        e.department,
+        formatRupiah(e.salary)
+    ]);
+
+    doc.autoTable({
+        head: [["ID", "Name", "Email", "Department", "Salary"]],
+        body: rows
+    });
+
+    doc.save("employees.pdf");
+}
+
+function toggleDarkMode() {
+
+    document.body.classList.toggle("dark");
+
+    const dark = document.body.classList.contains("dark");
+
+    localStorage.setItem("darkMode", dark);
+}
+
+(function () {
+
+    if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+    }
+
+})();
+
 document.getElementById("salary")?.addEventListener("input", function () {
     // Remove non-digits
     let val = this.value.replace(/\D/g, "");
