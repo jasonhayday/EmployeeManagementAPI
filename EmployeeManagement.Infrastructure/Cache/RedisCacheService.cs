@@ -25,6 +25,8 @@ public class RedisCacheService
         if (value.IsNullOrEmpty)
             return default;
 
-        return JsonSerializer.Deserialize<T>(value);
+        var json = value.ToString();
+
+        return JsonSerializer.Deserialize<T>(json);
     }
 }

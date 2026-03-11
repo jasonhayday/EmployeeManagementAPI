@@ -26,7 +26,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-builder.Services.AddSingleton<JwtService>();
+builder.Services.AddSingleton<JwtService>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    var secret = config["Jwt:Secret"]!;
+    return new JwtService(secret);
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();

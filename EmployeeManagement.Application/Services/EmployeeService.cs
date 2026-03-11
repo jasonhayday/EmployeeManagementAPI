@@ -46,13 +46,12 @@ public class EmployeeService : IEmployeeService
 
     public async Task<EmployeeResponseDto> CreateAsync(EmployeeCreateDto dto)
     {
-        var employee = new Employee
-        {
-            Name = dto.Name,
-            Email = dto.Email,
-            Department = dto.Department,
-            Salary = dto.Salary
-        };
+        var employee = new Employee(
+            dto.Name,
+            dto.Email,
+            dto.Department,
+            dto.Salary
+        );
 
         await _repository.AddAsync(employee);
 
@@ -73,10 +72,10 @@ public class EmployeeService : IEmployeeService
         if (employee == null)
             throw new Exception("Employee not found");
 
-        employee.Name = dto.Name;
-        employee.Email = dto.Email;
-        employee.Department = dto.Department;
-        employee.Salary = dto.Salary;
+        employee.SetName(dto.Name);
+        employee.SetEmail(dto.Email);
+        employee.SetDepartment(dto.Department);
+        employee.UpdateSalary(dto.Salary);
 
         await _repository.UpdateAsync(employee);
     }

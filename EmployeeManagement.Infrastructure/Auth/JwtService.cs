@@ -7,7 +7,12 @@ namespace EmployeeManagement.Infrastructure.Auth;
 
 public class JwtService
 {
-    private readonly string _secret = "THIS_IS_SUPER_SECRET_KEY";
+    private readonly string _secret;
+
+    public JwtService(string secret)
+    {
+        _secret = secret;
+    }
 
     public string GenerateToken(string username)
     {
